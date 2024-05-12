@@ -19,9 +19,9 @@ const ContactsPage = () => {
 
   return (
     <div>
-      {loading && <h2>Loading...</h2>}
+      {loading && <h2 style={{color: 'blue'}}>Loading...</h2>}
       {error && <h2>error</h2>}
-      <h1>Phonebook</h1>
+      <h1 style={{color: 'blue'}}>Phonebook</h1>
       <ContactForm  />
       <SearchBox  />
       <ContactList />

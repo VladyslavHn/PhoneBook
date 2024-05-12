@@ -1,0 +1,35 @@
+.formBox {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.inputForm {
+  margin-bottom: 20px;
+}
+
+.labelText {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.errorText {
+  color: red;
+}

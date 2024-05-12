@@ -3,6 +3,8 @@ import { FaUserLarge } from 'react-icons/fa6';
 import css from './contact.module.css';
 import { useDispatch } from 'react-redux';
 import { apiDeleteContact } from '../../redux/contacts/operations';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
@@ -12,20 +14,20 @@ const Contact = ({ contact }) => {
       <div>
         <p>
           <span className={css.icon}>
-            <FaPhone />
+            <FaUserLarge />
           </span>
           {contact.name}
         </p>
         <p>
           <span className={css.icon}>
-            <FaUserLarge />
+            <FaPhone />
           </span>
-          {contact.number}
+          <a href={`tel:${contact.number}`} className={css.link}>{contact.number}</a>
         </p>
       </div>
-      <button className={css.btn} onClick={handleDelete}>
-        Delete
-      </button>
+      <IconButton onClick={handleDelete}>
+        <DeleteIcon />
+      </IconButton>
     </div>
   )
 }

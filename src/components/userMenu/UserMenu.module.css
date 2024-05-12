@@ -1,0 +1,27 @@
+/* UserMenu.module.css */
+
+.userMenu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+}
+
+.welcome {
+  color: blue;
+  margin: 0 10px 0 0;
+}
+
+.btn {
+  display: flex;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.flexSpacer {
+  width: 170px;
+}
