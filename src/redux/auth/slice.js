@@ -22,6 +22,10 @@ const authSlice = createSlice({
             state.isLoggedIn = true;
              state.userData = action.payload.user;
              state.token = action.payload.token;
+         }).addCase(apiRegister.rejected, (state) => {
+            state.loading = false;
+            state.error = true;
+            
          })
          .addCase(apiLogin.fulfilled, (state, action) => { 
             state.loading = false;
@@ -55,7 +59,7 @@ const authSlice = createSlice({
          state.loading = true;
             state.error = false;
          })
-         .addMatcher(isAnyOf(apiRegister.rejected, apiLogin.rejected, apiLogout.rejected), (state) => {
+         .addMatcher(isAnyOf( apiLogin.rejected, apiLogout.rejected), (state) => {
          state.loading = false;
             state.error = true;
       })

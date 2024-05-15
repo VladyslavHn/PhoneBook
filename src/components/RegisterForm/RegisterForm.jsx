@@ -1,11 +1,11 @@
-
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { apiRegister } from '../../redux/auth/operations';
 import { TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
 
 import css from './RegisterForm.module.css';
+import { selectIsError } from '../../redux/auth/selectors';
 
 const initialValues = {
   name: '',
@@ -21,15 +21,31 @@ const RegisterUserSchema = Yup.object().shape({
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const emailExists = useSelector(selectIsError);
 
   const formik = useFormik({
     initialValues,
     validationSchema: RegisterUserSchema,
-    onSubmit: (values, { resetForm }) => {
-      dispatch(apiRegister(values));
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await dispatch(apiRegister(values));
+        resetForm();
+        dispatch({ type: 'SET_EMAIL_EXISTS', payload: false });
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          dispatch({ type: 'SET_EMAIL_EXISTS', payload: true });
+        }
+      }
     },
   });
+  
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    if (emailExists && value !== formik.values.email) {
+      dispatch({ type: 'SET_EMAIL_EXISTS', payload: false });
+    }
+    formik.handleChange(event);
+  };
 
   return (
     <form className={css.formBox} onSubmit={formik.handleSubmit}>
@@ -61,11 +77,11 @@ const RegistrationForm = () => {
             name='email'
             variant='outlined'
             value={formik.values.email}
-            onChange={formik.handleChange}
+            onChange={handleEmailChange} 
             onBlur={formik.handleBlur}
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div className={css.errorText}>{formik.errors.email}</div>
+          {formik.touched.email && (formik.errors.email || emailExists) ? (
+            <div className={css.errorText}>{formik.errors.email || 'Email already exists.'}</div>
           ) : null}
         </label>
       </div>
@@ -96,4 +112,3 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
-

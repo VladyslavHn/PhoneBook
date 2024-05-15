@@ -11,7 +11,7 @@ const UserMenu = () => {
   
   return (
     <div className={css.userMenu}>
-      <div className={css.flexSpacer} /> {/* Простір для розташування з правого боку */}
+      <div className={css.flexSpacer} />
       <div className={css.menuItem}>
         <p className={css.welcome}>Welcome, {user.name}</p>
         <Button
