@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { apiLogin, apiLogout, apiRefreshUser, apiRegister } from "./operations";
+import toast from "react-hot-toast";
 
 
 const authSlice = createSlice({
@@ -25,13 +26,18 @@ const authSlice = createSlice({
          }).addCase(apiRegister.rejected, (state) => {
             state.loading = false;
             state.error = true;
-            
+            toast.error('Email already exists!');
          })
          .addCase(apiLogin.fulfilled, (state, action) => { 
             state.loading = false;
             state.isLoggedIn = true;
              state.userData = action.payload.user;
             state.token = action.payload.token;
+         })
+         .addCase(apiLogin.rejected, (state) => {
+            state.loading = false;
+            state.error = true;
+            toast.error('Wrong email or password!');
          })
          .addCase(apiLogout.fulfilled, (state) => { 
             state.loading = false;
@@ -59,7 +65,7 @@ const authSlice = createSlice({
          state.loading = true;
             state.error = false;
          })
-         .addMatcher(isAnyOf( apiLogin.rejected, apiLogout.rejected), (state) => {
+         .addMatcher(isAnyOf( apiLogout.rejected), (state) => {
          state.loading = false;
             state.error = true;
       })

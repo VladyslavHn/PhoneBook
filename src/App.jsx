@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { Toaster } from 'react-hot-toast';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const RegistrationPage = lazy(() => import('./pages/RegistrationPage/RegistrationPage '));
@@ -61,6 +62,7 @@ function App() {
           </Suspense>
         )}
       </Layout>
+      <Toaster/>
     </>
   );
 }

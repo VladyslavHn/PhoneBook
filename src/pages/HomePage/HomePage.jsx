@@ -11,7 +11,7 @@ const HomePage = () => {
       {isSignedIn ? (
         <h1 className={css.welcome}>{`Welcome, ${userData.name}!`}</h1>
       ) : (
-        <h1 className={css.welcome}>Welcome to the Phone Book app!</h1>
+        <h1 className={css.welcome}>Welcome to the Phonebook app!</h1>
       )}
     </div>
   );
