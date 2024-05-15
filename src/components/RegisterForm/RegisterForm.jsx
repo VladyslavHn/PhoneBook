@@ -7,6 +7,8 @@ import { useFormik } from 'formik';
 import css from './RegisterForm.module.css';
 import { selectIsError } from '../../redux/auth/selectors';
 
+
+
 const initialValues = {
   name: '',
   email: '',
@@ -30,22 +32,15 @@ const RegistrationForm = () => {
       try {
         await dispatch(apiRegister(values));
         resetForm();
-        dispatch({ type: 'SET_EMAIL_EXISTS', payload: false });
       } catch (error) {
         if (error.response && error.response.status === 400) {
           dispatch({ type: 'SET_EMAIL_EXISTS', payload: true });
         }
+        
       }
     },
   });
-  
-  const handleEmailChange = (event) => {
-    const { value } = event.target;
-    if (emailExists && value !== formik.values.email) {
-      dispatch({ type: 'SET_EMAIL_EXISTS', payload: false });
-    }
-    formik.handleChange(event);
-  };
+
 
   return (
     <form className={css.formBox} onSubmit={formik.handleSubmit}>
@@ -77,7 +72,7 @@ const RegistrationForm = () => {
             name='email'
             variant='outlined'
             value={formik.values.email}
-            onChange={handleEmailChange} 
+            onChange={formik.handleChange} 
             onBlur={formik.handleBlur}
           />
           {formik.touched.email && (formik.errors.email || emailExists) ? (
